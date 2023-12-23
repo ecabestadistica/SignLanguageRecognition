@@ -1,0 +1,4 @@
+
+#Ignore Datasets folder
+Datasets/Numbers/*
+Datasets/Letters/*

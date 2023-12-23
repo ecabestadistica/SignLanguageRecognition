@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+sklearn = "*"
+tensorflow = "*"
+jupyterlab = "*"
+opencv-python = "*"
+scikit-learn = "*"
+scipy = "*"
+matplotlib = "*"
+pandas = "*"
+seaborn = "*"
+scikit-image = "*"
+tqdm = "*"
+pillow = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
