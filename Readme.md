@@ -22,6 +22,10 @@
 
     Example images for testing app
 
+
+
+### Note if you are in google colab pipenv is mostly not needed
+
 ## How to run the app
 
 This folder constains Pipenv file for installing the dependencies. To install the dependencies, run the following command:

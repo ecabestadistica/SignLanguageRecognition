@@ -1,4 +1,4 @@
 
 #Ignore Datasets folder
-Datasets/Numbers/*
-Datasets/Letters/*
+Datasets/*
+TrainedModels/*

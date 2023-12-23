@@ -167,6 +167,7 @@ websocket-client = "==1.6.4"
 werkzeug = "==3.0.1"
 widgetsnbextension = "==4.0.9"
 wrapt = "==1.14.1"
+gdown = "*"
 
 [dev-packages]
 
