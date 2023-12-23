@@ -47,7 +47,7 @@ import h5py
 
 
 #vgg
-model_path='../TrainedModels/model_letters_50x50_UNKpc.h5'
+model_path='./TrainedModels/model_letters_50x50_UNKpc.h5'
 model=tf.keras.models.load_model(model_path)
 
 
@@ -114,9 +114,10 @@ if __name__ == "__main__":
     num_frames = 0
 
 
-#
-#    
-    lista=os.listdir('Signos ASL')
+    currentScriptPath = os.path.dirname(os.path.abspath(__file__))
+    pathImgExample = currentScriptPath + '/Signos ASL'
+
+    lista=os.listdir(pathImgExample)
 #    while(True):
 #        for i in range(24):
 #            print(type(lista[i]))
@@ -232,7 +233,7 @@ if __name__ == "__main__":
         keypress2 = cv2.waitKey(1) 
         if keypress2 == ord(" "):
             letrica=lista[np.random.randint(24)]
-            letraimagen=cv2.imread('Signos ASL/'+ letrica)
+            letraimagen=cv2.imread(pathImgExample + '/'+ letrica)
 #            cv2.imshow("Letra", letraimagen)
             cloneletrica = letraimagen.copy()
 #            cv2.putText(cloneletrica, letrica, (left-100, top+50), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255,255,255), 2)

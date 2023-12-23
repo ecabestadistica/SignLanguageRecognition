@@ -16,14 +16,14 @@ Created on Thu Nov 21 15:22:11 2019
 import tensorflow as tf 
 import h5py
 
-from object_detection.utils import visualization_utils as viz_utils
+#from object_detection.utils import visualization_utils as viz_utils
 
 #model_path='CNNmodel_als_lastone.h5'
 
 
 #model_path='CNNmodel2.h5'
 
-model_path='../TrainedModels/numbers_model_100x100_70pc.keras'
+model_path='./TrainedModels/numbers_model_100x100_70pc.keras'
 image_side=100
 
 
@@ -82,7 +82,10 @@ def segment(image, threshold=25):
 #-----------------
 if __name__ == "__main__":
     
-    lista=os.listdir('Signos Numeros')
+    currentScriptPath = os.path.dirname(os.path.abspath(__file__))
+    pathImgExample = currentScriptPath + '/Signos Numeros'
+
+    lista=os.listdir(pathImgExample)
     # initialize weight for running average
     aWeight = 0.5
 
@@ -208,7 +211,7 @@ if __name__ == "__main__":
         keypress2 = cv2.waitKey(1) 
         if keypress2 == ord(" "):
             letrica=lista[np.random.randint(10)]
-            letraimagen=cv2.imread('Signos Numeros/'+ letrica)
+            letraimagen=cv2.imread(pathImgExample+'/'+ letrica)
             letraimagen=cv2.resize(letraimagen, (150,150), interpolation = cv2.INTER_AREA)
 #            cv2.imshow("Letra", letraimagen)
             cloneletrica = letraimagen.copy()

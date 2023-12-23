@@ -18,6 +18,9 @@
 
     the apps/scripts for testing the models
 
+### testApp/Signos XX
+
+    Example images for testing app
 
 ## How to run the app
 
@@ -31,9 +34,9 @@ This folder constains Pipenv file for installing the dependencies. To install th
 To run the app, run the following command:
 
 ```bash
-    pipenv run testApp\\test_app_numbers.py
+    pipenv run python testApp/test_app_numbers.py
     or
-    pipenv run testApp\\test_app_letters.py
+    pipenv run python testApp/test_app_letters.py
 ```
 
 ## How to train the models
