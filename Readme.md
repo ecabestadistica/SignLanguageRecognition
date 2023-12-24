@@ -26,6 +26,8 @@
 
 ### Note if you are in google colab pipenv is mostly not needed
 
+### Note About the dependencies, tensorflow 2.14.1 works with cuda 11 if you have cuda 12 you need to install tensorflow 2.15.X
+
 ## How to run the app
 
 This folder constains Pipenv file for installing the dependencies. To install the dependencies, run the following command:

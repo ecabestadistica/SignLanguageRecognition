@@ -2,3 +2,7 @@
 #Ignore Datasets folder
 Datasets/*
 TrainedModels/*
+*.h5
+*.keras
+*.zip
+Pipfile.lock
