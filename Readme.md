@@ -53,7 +53,7 @@ This folder constains Pipenv file for installing the dependencies. To install th
 
 ```bash
     pip install pipenv
-    pipenv install
+    pipenv install -d
 ```
 
 Configure your jupyter to use the pipenv kernel and then run the notebooks in the notebooks folder. Follow the instructions in the notebooks to train the models.
