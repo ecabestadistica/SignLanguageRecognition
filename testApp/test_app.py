@@ -12,6 +12,14 @@ import cv2
 import numpy as np
 currentScriptPath = os.path.dirname(os.path.abspath(__file__))
 
+############# General Config ################
+
+camera_capture_rect = (50, 50, 200, 200)
+camera_index = 0
+main_window_name = "Video Feed"
+example_window_name = "Example"
+
+########### General Config ##############
 
 # ask user to run numbers of letters model
 while True:
@@ -40,19 +48,10 @@ elif model_to_run.lower() == "l":
 
     model_path='./TrainedModels/model_letters_50x50_UNKpc.h5'
     image_side=56
-    classes = 'ABCDEFGHIKLMNOPQRSTUVWXY'
+    classes = ("A","B","C","D","E","F","G","H","I","K","L","M","N","O","P","Q","R","S", "T", "U", "V", "W", "X", "Y") # since our classes have just 1 character this can be also "ABCDEFGHIKLMNOPQRSTUWXY" but we prefer to use a tuple
     example_images_path = currentScriptPath + '/Signos ASL'
 
     ########### End Model Config ##############
-
-############# General Config ################
-
-camera_capture_rect = (50, 50, 200, 200)
-camera_index = 0
-main_window_name = "Video Feed"
-example_window_name = "Example"
-
-########### General Config ##############
 
 
 print(tf.__version__)
@@ -75,9 +74,6 @@ if __name__ == "__main__":
     # get list of example images
     list_of_example_images = os.listdir(example_images_path)
 
-    # initialize weight for running average
-    aWeight = 0.5
-
     # get the reference to the webcam
     try:
         camera = cv2.VideoCapture(camera_index)
@@ -89,7 +85,8 @@ if __name__ == "__main__":
     x1, y1, x2, y2 = camera_capture_rect
 
     firt_image_show = False
-    example_to_show = 0
+    last_example = 0
+    last_feed_position = 0
     
     # keep looping, until interrupted
     while(True):
@@ -146,9 +143,11 @@ if __name__ == "__main__":
         
         if cv2.waitKey(1) == ord(" ") or not firt_image_show:
             firt_image_show = True
-            last_example = example_to_show
+            example_to_show = last_example
             while example_to_show == last_example:
-                example_to_show = list_of_example_images[np.random.randint(10)]
+                example_to_show = list_of_example_images[np.random.randint(len(list_of_example_images))]
+            
+            last_example = example_to_show
             
             # read the example image
             example_image = cv2.imread(example_images_path + '/' + example_to_show)
@@ -160,9 +159,16 @@ if __name__ == "__main__":
             # Displaying the image 
             cv2.imshow(example_window_name, example_image)
 
-        # move "Example" window to the right of "Video Feed" window
-        video_feed_window_position = cv2.getWindowImageRect(main_window_name)
-        cv2.moveWindow(example_window_name, video_feed_window_position[0] + video_feed_window_position[2] + 10, video_feed_window_position[1])
+        try:
+            # move "Example" window to the right of "Video Feed" window
+            video_feed_window_position = cv2.getWindowImageRect(main_window_name)
+            if last_feed_position != video_feed_window_position:
+                last_feed_position = video_feed_window_position
+                cv2.moveWindow(example_window_name, video_feed_window_position[0] + video_feed_window_position[2] + 10, video_feed_window_position[1])
+                # keep on front
+                cv2.setWindowProperty(example_window_name, cv2.WND_PROP_TOPMOST, 1)
+        except:
+            pass
 
         # if the user pressed "q", then stop looping
         if cv2.waitKey(1)  == ord("q"):
