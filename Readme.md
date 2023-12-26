@@ -10,9 +10,13 @@
 
     datasets for training the models
 
+    Datasets currently at: https://drive.google.com/drive/folders/1-qBEfke0XmfN13_zaccMZa5YH0vfvNJa?usp=drive_link
+
 ### TrainedModels
 
     pretrained models just for testing
+
+    Trained models currently at: https://drive.google.com/drive/folders/1-qBEfke0XmfN13_zaccMZa5YH0vfvNJa?usp=drive_link
 
 ### testApp
 

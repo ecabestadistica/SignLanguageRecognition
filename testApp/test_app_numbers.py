@@ -15,22 +15,23 @@ Created on Thu Nov 21 15:22:11 2019
 #-------------------------------------------
 import tensorflow as tf 
 import h5py
+import os
 
-#from object_detection.utils import visualization_utils as viz_utils
-
-#model_path='CNNmodel_als_lastone.h5'
-
-
-#model_path='CNNmodel2.h5'
+print(tf.__version__)
+print(tf.config.list_physical_devices())
 
 model_path='./TrainedModels/numbers_model_100x100_70pc.keras'
+#model_path='./TrainedModels/numbers_model_100x100_70pc.h5'
 image_side=100
 
-
-import os
-#from time import sleep
-
-model=tf.keras.models.load_model(model_path)
+try:
+    model=tf.keras.models.load_model(model_path)
+except:
+    ## print original exception
+    import traceback
+    print(traceback.format_exc())
+    print("If you get error \"expected 2 variables, but received 0 variables during loading.\" try to change model path from .keras to .h5")
+    exit()
 
 
 
