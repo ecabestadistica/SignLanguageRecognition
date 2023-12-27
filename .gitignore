@@ -2,6 +2,7 @@
 #Ignore Datasets folder
 Datasets/*
 TrainedModels/*
+Notebooks/model/*
 *.h5
 *.keras
 *.zip
