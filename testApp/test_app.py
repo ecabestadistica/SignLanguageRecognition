@@ -46,8 +46,8 @@ if model_to_run.lower() == "n":
 elif model_to_run.lower() == "l":
     ############# Model Config ################
 
-    model_path='./TrainedModels/model_letters_50x50_UNKpc.h5'
-    image_side=56
+    model_path='./TrainedModels/letters_model_192x192_68pc.h5'
+    image_side=192
     classes = ("A","B","C","D","E","F","G","H","I","K","L","M","N","O","P","Q","R","S", "T", "U", "V", "W", "X", "Y") # since our classes have just 1 character this can be also "ABCDEFGHIKLMNOPQRSTUWXY" but we prefer to use a tuple
     example_images_path = currentScriptPath + '/Signos ASL'
 
