@@ -46,10 +46,10 @@ if model_to_run.lower() == "n":
 elif model_to_run.lower() == "l":
     ############# Model Config ################
 
-    model_path='./TrainedModels/letters_model_192x192_74.5pc.h5'
+    model_path='./TrainedModels/letters_new2_model_192x192_80.6pc_res52.h5'
     image_side=192
     classes = ("A","B","C","D","E","F","G","H","I","K","L","M","N","O","P","Q","R","S", "T", "U", "V", "W", "X", "Y") # since our classes have just 1 character this can be also "ABCDEFGHIKLMNOPQRSTUWXY" but we prefer to use a tuple
-    example_images_path = currentScriptPath + '/Signos ASL'
+    example_images_path = currentScriptPath + '/AlphabetASL'
 
     ########### End Model Config ##############
 
@@ -151,7 +151,13 @@ if __name__ == "__main__":
             
             # read the example image
             example_image = cv2.imread(example_images_path + '/' + example_to_show)
-            example_image = cv2.resize(example_image, (150, 150), interpolation = cv2.INTER_AREA)
+
+            # get image size
+            height, width, _ = example_image.shape
+            
+            new_height = int(height * 150 / width)
+
+            example_image = cv2.resize(example_image, (150, new_height), interpolation = cv2.INTER_AREA)
             
             # Using cv2.putText() method 
             example_image = cv2.putText(example_image, str(example_to_show[0]), (10, 30), cv2.FONT_HERSHEY_SIMPLEX , 1, (0,0,255), 2, cv2.LINE_AA) 
