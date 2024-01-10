@@ -3,7 +3,10 @@
 Datasets/*
 TrainedModels/*
 Notebooks/model/*
+Notebooks/hypertuner/*
+Notebooks/.neptune/*
 *.h5
 *.keras
 *.zip
 Pipfile.lock
+neptune_api_token.txt
