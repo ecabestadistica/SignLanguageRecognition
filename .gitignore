@@ -5,6 +5,8 @@ TrainedModels/*
 Notebooks/model/*
 Notebooks/hypertuner/*
 Notebooks/.neptune/*
+Notebooks/model_trainer/*
+.neptune/*
 *.h5
 *.keras
 *.zip
