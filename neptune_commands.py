@@ -5,6 +5,7 @@ import os
 import neptune
 import pandas as pd
 import tensorflow as tf
+import traceback
 
 neptune_api_token = open("neptune_api_token.txt").read()
 os.environ["NEPTUNE_API_TOKEN"] = neptune_api_token
@@ -29,14 +30,6 @@ for i in range(min_run_id, top_run_id+1):
         except:
             epochs_executed = -1
 
-        try:
-            run_status = run["status"].fetch()
-        except:
-            run_status = -1
-
-        if run_status == -1:
-            run["status"] = "finished"
-
         if epochs_executed == -1:
             accuracy_dataframe = run["eval/accuracy"].fetch_values()
             # get num of epochs executed
@@ -60,12 +53,14 @@ for i in range(min_run_id, top_run_id+1):
             model = tf.keras.models.load_model(model_name)
 
             # get num of parameters
-            run["model_params_count"] = model.count_params()
+            if model_params_count == -1:
+                run["model_params_count"] = model.count_params()
 
             del model
 
         run.stop()
-    except:
+    except Exception as e:
+        print(traceback.format_exc())
         pass
 
 
