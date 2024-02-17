@@ -75,10 +75,25 @@ async def websocket_handler(request):
             # get width and height from msg.data
             frame = cv2.imdecode(np.frombuffer(msg.data, dtype=np.uint8), cv2.IMREAD_COLOR)
 
+            # if image is not square crop it keeping the center
+            if frame.shape[0] != frame.shape[1]:
+                if frame.shape[0] > frame.shape[1]:
+                    #crop y
+                    y = frame.shape[0] - frame.shape[1]
+                    y = int(y / 2)
+                    frame = frame[y:y+frame.shape[1], 0:frame.shape[1]]
+                else:
+                    #crop x
+                    x = frame.shape[1] - frame.shape[0]
+                    x = int(x / 2)
+                    frame = frame[0:frame.shape[0], x:x+frame.shape[0]]
+
+            frameCopy = frame.copy()
             # if frame shape is not the same of image_side, resize it
             if frame.shape[0] != image_side or frame.shape[1] != image_side:
                 # resize the frame
                 frame = cv2.resize(frame, (image_side, image_side), interpolation = cv2.INTER_AREA)
+                frameResized = frame.copy()
 
             frame = frame / 255.0
             frame = frame.reshape(-1, image_side, image_side, 3)
@@ -127,6 +142,6 @@ async def start_server(host="0.0.0.0", port=8000):
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
-    print("Server started at http://0.0.0.0:8000")
+    print("Server started at http://localhost:8000")
     loop.run_until_complete(start_server())
     loop.run_forever()

@@ -59,7 +59,13 @@
 
         /* limit video and image size to prevent overflow */
         #webcam {
+            position: relative;
+        }
+        #cropDiv {
+            /* crop div must be an square */
             width: 100%;
+
+            overflow: hidden;
         }
         #exampleImage {
             width: 100%;
@@ -83,7 +89,9 @@
         <div class="left Pred">
             <h2>Predicted</h2>
             <p id="predicted"></p>
-            <video id="webcam"></video>
+            <div id="cropDiv">
+                <video id="webcam"></video>
+            </div>
         </div>
         <div class="right exampleShow">
             <h2>Example</h2>
@@ -262,6 +270,30 @@
             }
             
         }, 200);
+        setInterval(function () {
+            //adjust video size
+            const video = document.getElementById('webcam');
+            const cropDiv = document.getElementById('cropDiv');
+            const cropDivWidth = cropDiv.offsetWidth; //get the width of the crop div
+            cropDiv.style.height = cropDivWidth + "px"; //set the height of the crop div to be the same as the width
+
+            if (video.videoWidth == 0 || video.videoHeight == 0) {
+                return;
+            }
+
+            if (video.videoWidth > video.videoHeight) {
+                video.style.width = "auto";
+                video.style.height = cropDivWidth+"px";
+                video.style.left = ((cropDivWidth - video.offsetWidth) / 2) + "px";
+                video.style.top = "0px";
+            } else {
+                video.style.width = cropDivWidth+"px";
+                video.style.height = "auto";
+                video.style.left = "0px";
+                video.style.top = ((cropDivWidth - video.offsetHeight) / 2) + "px";
+            }
+
+        }, 100);
     </script>
 </body>
 </html>
