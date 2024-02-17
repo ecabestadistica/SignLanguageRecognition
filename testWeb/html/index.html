@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Test website</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #464646;
+            color: white;
+        }
+        .webhead {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .main {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .Pred {
+            width: 25%;
+        }
+        .exampleShow {
+            width: 25%;
+        }
+
+        /* .main full with on mobile and 50% on desktop */
+        @media (max-width: 768px) {
+            .Pred, .exampleShow {
+                width: 50%;
+            }
+        }
+
+        #error {
+            color: red;
+        }
+
+        /* limit video and image size to prevent overflow */
+        #webcam {
+            width: 100%;
+        }
+        #exampleImage {
+            width: 100%;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="webhead">
+        <h1>AI Research test SignLanguage</h1>
+        <h3>This app is for testing and AI research about sign language recognition, please turn on the camera and put your hand in the center for predictions</h3>
+    </div>
+    <div class="controls">
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+        <button id="next">Next example image</button>
+        <button id="previous">Previous example image</button>
+        <p id="error"></p>
+    </div>
+    <div class="main">
+        <div class="left Pred">
+            <h2>Predicted</h2>
+            <p id="predicted"></p>
+            <video id="webcam"></video>
+        </div>
+        <div class="right exampleShow">
+            <h2>Example</h2>
+            <p>Letter: <span id="exampleText"></span></p>
+            <img src="https://www.w3schools.com/w3images/fjords.jpg" alt="Example image" id="exampleImage">
+        </div>
+    </div>
+    <canvas id="hiddenFrameCopy" style="display: none;"></canvas>
+
+    <script>
+        var protocol = window.location.protocol; //http or https
+        var port = window.location.port; //port
+        //if port is 80 or 443 then we don't need to add port
+        if (port == "80" || port == "443" || port == "")
+            port = ""
+        else
+            port = ":" + port
+        var url = window.location.hostname; //domain
+        var suburl = window.location.pathname; //path
+        if (!suburl.startsWith("/")) {
+            suburl = "/" + suburl;
+        }
+        if (!suburl.endsWith("/")) {
+            suburl = suburl + "/";
+
+        }
+        console.log("protocol: " + protocol);
+        console.log("port: " + port);
+        console.log("url: " + url);
+        console.log("suburl: " + suburl);
+
+        var running = false
+        // Function to handle successful webcam access
+        function gotMedia(stream) {
+            running = true;
+            const video = document.getElementById('webcam');
+            video.srcObject = stream;
+            video.play();
+        }
+
+        // Function to handle errors if webcam access is denied
+        function handleError(error) {
+            document.getElementById('error').textContent = 'Error accessing your webcam: ' + error.message;
+        }
+
+        // Request webcam access when the user clicks the button
+        function requestWebcam() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(gotMedia)
+                .catch(handleError);
+        }
+
+        var classes = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y"];
+
+        exampleText.textContent = classes[0];
+        exampleImage.src = protocol + "//" + url + port + suburl + "example_imgs/"+classes[0]+".webp";
+
+        
+
+        // Check if browser supports getUserMedia()
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            // Create a button to request webcam access
+            document.getElementById('start').addEventListener('click', requestWebcam);
+            document.getElementById('stop').addEventListener('click', function() {
+                running = false;
+                const video = document.getElementById('webcam');
+                video.srcObject.getTracks().forEach(track => track.stop());
+                video.srcObject = null;
+            });
+            document.getElementById('next').addEventListener('click', function() {
+                var exampleImage = document.getElementById('exampleImage');
+                var exampleText = document.getElementById('exampleText');
+                var index = classes.indexOf(exampleText.textContent);
+                if (index < classes.length - 1) {
+                    index++;
+                } else {
+                    index = 0;
+                }
+                exampleText.textContent = classes[index];
+                exampleImage.src = protocol + "//" + url + port + suburl + "example_imgs/"+classes[index]+".webp";
+            });
+            document.getElementById('previous').addEventListener('click', function() {
+                var exampleImage = document.getElementById('exampleImage');
+                var exampleText = document.getElementById('exampleText');
+                var index = classes.indexOf(exampleText.textContent);
+                if (index > 0) {
+                    index--;
+                } else {
+                    index = classes.length - 1;
+                }
+                exampleText.textContent = classes[index];
+                exampleImage.src = protocol + "//" + url + port + suburl + "example_imgs/"+classes[index]+".webp";
+            });
+        } else {
+            document.getElementById('error').textContent = 'Your browser does not support webcam access.';
+        }
+    </script>
+
+    <script>
+
+        var socket = undefined;
+        var responseProcessed = true;
+        var requestTime = 0;
+
+        function setWebSocket() {
+            console.log("setWebSocket")
+            socket = new WebSocket((protocol == "http:" ? "ws" : "wss") + "://" + url + port + suburl + "ws" );
+
+            socket.onopen = function (e) {
+                console.log("[ws open] Connection established");
+                failCount = 0;
+            };
+
+            socket.onerror = function (error) {
+                console.log(`[ws error] ${error.message}`);
+                failCount++;
+                if (failCount > 5) {
+                    console.log("Websocket have > 5 consecutive fails, reloading page")
+                    window.location.reload();
+                }
+            };
+
+            socket.onclose = function (e) {
+                autoReconnectTime = 1000;
+                console.log('Socket is closed. Reconnect will be attempted in '+autoReconnectTime+' ms.', e.reason);
+                setTimeout(function () {
+                    setWebSocket();
+                }, autoReconnectTime);
+            };
+
+            socket.onmessage = function (e) {
+                //print time
+                var responseTime = new Date().getTime();
+                console.log("Response time: " + (responseTime - requestTime) + "ms");
+
+                responseProcessed = true;
+                if (e.data == "x") { //ignore when sever get less than 20% of accuracy
+                    return;
+                }
+                document.getElementById("predicted").innerHTML = "Predicted: " + e.data;
+            };
+        }
+
+        setWebSocket();
+    </script>
+
+    <script>
+        const v = document.getElementById('webcam')
+        let c = document.getElementById('hiddenFrameCopy')
+        const ctx = c.getContext('2d')
+        setInterval(function () {
+            if (running && responseProcessed) {
+                responseProcessed = false; //prevent send more images while server is processing to avoid queue
+                requestTime = new Date().getTime();
+                c.height = v.videoHeight || parseInt(v.style.height)
+                c.width = v.videoWidth || parseInt(v.style.width)
+                ctx.drawImage(v, 0, 0)
+                //send bytes to server
+                c.toBlob(function (blob) {
+                    // if is not a blob, we can't send it
+                    if (blob == null) {
+                        responseProcessed = true;
+                        console.log("blob is null")
+                        return;
+                    }
+
+                    var reader = new FileReader();
+                    reader.readAsArrayBuffer(blob);
+                    reader.onloadend = function () {
+                        var arrayBuffer = reader.result;
+                        if (socket.readyState === WebSocket.OPEN) {
+                            socket.send(arrayBuffer);
+                        }
+                    }
+                }, 'image/jpeg', 0.7)
+            }
+            
+        }, 200);
+    </script>
+</body>
+</html>
