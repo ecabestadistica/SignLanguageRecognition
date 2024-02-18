@@ -22,11 +22,13 @@
 
     the apps/scripts for testing the models
 
-### testApp/Signos XX
+### testApp/Signos XX,AlphabetASL,Signos Numeros
 
     Example images for testing app
 
+### testWeb
 
+    simple web server for testing the models from anywhere without need to install the environment
 
 ### Note if you are in google colab pipenv is mostly not needed
 
@@ -53,7 +55,7 @@ This folder constains Pipenv file for installing the dependencies. To install th
 
 ```bash
     pip install pipenv
-    pipenv install -d
+    pipenv install
 ```
 
 Configure your jupyter to use the pipenv kernel and then run the notebooks in the notebooks folder. Follow the instructions in the notebooks to train the models.
