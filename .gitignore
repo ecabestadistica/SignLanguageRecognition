@@ -2,6 +2,7 @@
 #Ignore Datasets folder
 Datasets/*
 TrainedModels/*
+model/*
 Notebooks/model/*
 Notebooks/hypertuner/*
 Notebooks/.neptune/*

@@ -4,17 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+tensorflow = {extras = ["and-cuda"], version = "*"}
 opencv-python = "*"
-tensorflow = "==2.14.1"
-h5py = "*"
-keras-tuner = "*"
-neptune = "*"
-
-[dev-packages]
-ipykernel = "*"
-gdown = "*"
+aiohttp = "*"
 scikit-learn = "*"
 matplotlib = "*"
+neptune = "*"
+gdown = "*"
+
+[dev-packages]
 
 [requires]
-python_version = "3.11"
+python_version = "3.10"
