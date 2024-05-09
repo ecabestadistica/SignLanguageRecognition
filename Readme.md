@@ -1,5 +1,8 @@
 # SignLanguageRecognition
 
+    Pre-print: https://arxiv.org/abs/2404.07211 
+    Web application: https://signlanguagerecognition.aprendeconeli.com/
+
 ## Folder structure
 
 ### Notebooks
