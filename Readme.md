@@ -3,6 +3,8 @@
 Pre-print: https://arxiv.org/abs/2404.07211 
 Web application: https://signlanguagerecognition.aprendeconeli.com/
 
+Licence Attribution-NonCommercial-ShareAlike 4.0 International: https://github.com/ecabestadistica/SignLanguageRecognition/tree/master?tab=License-1-ov-file#readme
+
 ## Folder structure
 
 ### Notebooks
