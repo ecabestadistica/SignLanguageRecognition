@@ -13,13 +13,13 @@ Web application: https://signlanguagerecognition.aprendeconeli.com/
 
     datasets for training the models
 
-    Datasets currently at: https://drive.google.com/drive/folders/1-qBEfke0XmfN13_zaccMZa5YH0vfvNJa?usp=drive_link
+    Datasets currently at: https://drive.google.com/drive/folders/1oWIGEy2vciJK8Wfl79Xg64JffZbjmzfY
 
 ### TrainedModels
 
     pretrained models just for testing
 
-    Trained models currently at: https://drive.google.com/drive/folders/1-qBEfke0XmfN13_zaccMZa5YH0vfvNJa?usp=drive_link
+    Trained models currently at: https://drive.google.com/drive/folders/1u_H4_2Wc2-plryjFQnZ9C52HyTXHGn-5
 
 ### testApp
 
