@@ -1,6 +1,9 @@
 # SignLanguageRecognition
 
-Pre-print: https://arxiv.org/abs/2404.07211 
+Please cite this paper:
+Cabana, E. (2025). Advancing Accessible AI: A Comprehensive Dataset and Neural Models for Real-Time American Sign Language Alphabet Classification. In: Arai, K. (eds) Intelligent Systems and Applications. IntelliSys 2025. Lecture Notes in Networks and Systems, vol 1567. Springer, Cham. 
+https://doi.org/10.1007/978-3-032-00071-2_15
+
 Web application: https://signlanguagerecognition.aprendeconeli.com/
 
 Licence Attribution-NonCommercial-ShareAlike 4.0 International: https://github.com/ecabestadistica/SignLanguageRecognition/tree/master?tab=License-1-ov-file#readme
