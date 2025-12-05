@@ -19,7 +19,11 @@ Licence Attribution-NonCommercial-ShareAlike 4.0 International: https://github.c
 
     datasets for training the models
 
-    Datasets currently at: https://drive.google.com/drive/folders/1oWIGEy2vciJK8Wfl79Xg64JffZbjmzfY
+    Datasets currently at Mendeley Data under CC BY 4.0 license: https://data.mendeley.com/datasets/jdyksv2jhh/1
+
+    Please cite the dataset as well if re-used:
+
+    Cabana Garceran del Vall, Elisa (2025), “American Sign Language Alphabet Dataset”, Mendeley Data, V1, doi: 10.17632/jdyksv2jhh.1
 
 ### TrainedModels
 
