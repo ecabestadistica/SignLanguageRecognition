@@ -9,21 +9,18 @@ Web application: https://signlanguagerecognition.aprendeconeli.com/
 
 Licence Attribution-NonCommercial-ShareAlike 4.0 International: https://github.com/ecabestadistica/SignLanguageRecognition/tree/master?tab=License-1-ov-file#readme
 
+Datasets for training and testing the models can be found at Mendeley Data under CC BY 4.0 license: https://data.mendeley.com/datasets/jdyksv2jhh/1
+
+Please cite the dataset as well if re-used:
+
+Cabana Garceran del Vall, Elisa (2025), “American Sign Language Alphabet Dataset”, Mendeley Data, V1, doi: 10.17632/jdyksv2jhh.1
+
+
 ## Folder structure
 
 ### Notebooks
 
     notebooks for training the models
-
-### Datasets
-
-    datasets for training the models
-
-    Datasets currently at Mendeley Data under CC BY 4.0 license: https://data.mendeley.com/datasets/jdyksv2jhh/1
-
-    Please cite the dataset as well if re-used:
-
-    Cabana Garceran del Vall, Elisa (2025), “American Sign Language Alphabet Dataset”, Mendeley Data, V1, doi: 10.17632/jdyksv2jhh.1
 
 ### TrainedModels
 
